@@ -1,27 +1,32 @@
-import React from 'react'
-import "./Users.css"
-import male from "../../assets/male-avatar-boy-face-man-user-9.svg"
-import female from "../../assets/female-avatar-girl-face-woman-user-2.svg"
+import React from "react";
+import "./Users.css";
+import male from "../../assets/male-avatar-boy-face-man-user-9.svg";
+import female from "../../assets/female-avatar-girl-face-woman-user-2.svg";
+import { useDispatch } from "react-redux";
+import { removeFromUsers } from "../../context/userSlice";
+import { like } from "../../context/followSlice";
 
-function Users() {
+function Users({ data }) {
+  let dispatch = useDispatch();
   return (
-    <div className='users__wrapper'>
-        <div className="users__card">
-            <img src={male} alt="" />
-            <h2>John Doe</h2>
-            <p>Web developer</p>
-            <p>32 years old</p>
-            <button>Remove</button>
+    <div className="users__wrapper">
+      {data?.map((el) => (
+        <div key={el.id} className="users__card">
+          <img src={el.gender === "male" ? male : female} alt="" />
+          <h2>{el.username}</h2>
+          <p>{el.name}</p>
+          <p>{el.profession}</p>
+          <p>{el.age}</p>
+          <div className="users__btn">
+            <button onClick={() => dispatch(removeFromUsers(el))}>
+              Remove
+            </button>
+            <button onClick={() => dispatch(like(el))}>Follow</button>
+          </div>
         </div>
-        <div className="users__card">
-            <img src={female} alt="" />
-            <h2>Jane Doe</h2>
-            <p>Designer</p>
-            <p>24 years old</p>
-            <button>Remove</button>
-        </div>
+      ))}
     </div>
-  )
+  );
 }
 
-export default Users
+export default Users;

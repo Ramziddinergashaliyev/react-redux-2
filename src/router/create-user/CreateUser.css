@@ -1,9 +1,9 @@
 .create__user {
   padding: 40px 10%;
-  /* display: flex;
+  display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center; */
+  align-items: center;
 }
 .create__user h2 {
   color: violet;
